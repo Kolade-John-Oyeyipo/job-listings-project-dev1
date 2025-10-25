@@ -4,7 +4,7 @@ import path from 'path';
 
 const require = createRequire(import.meta.url);
 const data = require('../src/jobs.json');
-const jobs = data.jobsServer;
+let jobs = data.jobsServer;
 
 export default async function Handler (req, res) {
   if (req.method === 'GET') {
@@ -28,7 +28,7 @@ export default async function Handler (req, res) {
   if (req.method === "POST") {
     try {
       const newJob = req.body; // data sent from frontend form
-      // newJob.id = Date.now().toString(); // simple unique ID
+      // newJob.id = Date.now().toString(); // simple unique id
 
       // Add to our in-memory array
       jobs.push(newJob);
@@ -44,11 +44,23 @@ export default async function Handler (req, res) {
     }
   }
 
-  if (req.method === 'PUT') {
-    return res.status(500).json({error: 'Update job functionality has not been implemented'})
+  if (req.method === 'DELETE') {
+    try {
+      const { id } = req.query;
+      jobs = jobs.filter((job) => job.id.toString() !== id.toString());
+
+      // save to file so it persists
+      const filePath = new URL("../src/jobs.json", import.meta.url).pathname;
+      await fs.writeFile(filePath, JSON.stringify({ jobsServer: jobs }, null, 2));
+
+      //return the updated jobs array
+      return res.status(200).json(jobs);
+    } catch (err) {
+      return res.status(500).json({error: 'could not process delete request'})
+    }
   }
 
-  if (req.method === 'DELETE') {
-    return res.status(500).json({error: 'Delete job functionality has not been implemented'})
+  if (req.method === 'PUT') {
+    return res.status(500).json({error: 'Update job functionality has not been implemented'})
   }
 }

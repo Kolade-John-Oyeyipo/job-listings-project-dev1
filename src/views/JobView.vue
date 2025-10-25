@@ -19,7 +19,7 @@
     try {
       const deletePrompt = window.confirm('Are you sure you want to delete?');
       if (deletePrompt) {
-        await axios.delete(`/api/jobsServer/${id}`);
+        await axios.delete(`/api/jobs`, { params: {id} });
         toast.success('Job deleted Successfully')
         router.push('/jobs')
       }
@@ -36,7 +36,7 @@
   onMounted( async () => {
     try{
       await lag(); //simulate server delay
-      const response = await axios.get(`/api/jobs/`, { params: {id} });
+      const response = await axios.get(`/api/jobs/`, { params: { id } });
       const jobData = await response.data;
 
       console.log(jobData)
