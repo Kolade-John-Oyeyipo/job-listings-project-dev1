@@ -111,20 +111,6 @@
         "contactEmail": "contact@dolorsitamet.com",
         "contactPhone": "555-555-5555"
       }
-    },
-    {
-      "id": 9,
-      "type": "Internship",
-      "title": "Cherokee Burch",
-      "description": "Quia qui voluptatem",
-      "salary": "$80K - $90K",
-      "location": "Doloremque minima qu",
-      "company": {
-        "name": "Schmidt Franks Traders",
-        "description": "Earum id in molesti",
-        "contactEmail": "xejeto@mailinator.com",
-        "contactPhone": "+1 (816) 669-4232"
-      }
     }
   ]
 }
